@@ -118,8 +118,13 @@ func maxInt(x,y int) int {
 // Let's start with assumption of single term query.
 func (s *SearchIndex) Search(query string) []SearchResult{
 	tokenizedQuery := strings.FieldsFunc(query, tokenizer)
+  if query == "" {
+    return nil
+  }
+
 	if len(tokenizedQuery) != 1 {
-		log.Fatal("Only supports single term query for now")
+		log.Print("Only supports single term query for now")
+    return nil
 	}
 
 	allEntries := s.reverseIndex[tokenizedQuery[0]]
